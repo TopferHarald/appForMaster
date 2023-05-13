@@ -36,6 +36,10 @@ dependencies:
   shared_preferences: 2.0.16
   google_fonts: ^4.0.3
   json_annotation: 4.8.0
+  uuid: ^3.0.6
+  flutter_local_notifications: ^14.0.0+1
+  rxdart: ^0.23.1
+  fx_stepper: ^0.0.1
 
 
 

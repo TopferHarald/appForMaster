@@ -1,9 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'footprint.g.dart';
+
 
 @JsonSerializable()
 class Footprint {
-
 
   int choiceSaison;
   int choiceMilk;
@@ -35,6 +36,8 @@ class Footprint {
   int choiceDevices;
   int choiceEat;
 
+  String userid;
+
   factory Footprint.fromJson(Map<String, dynamic> data) => _$FootprintFromJson(data);
 
   Map<String,dynamic> toJson() => _$FootprintToJson(this);
@@ -65,5 +68,6 @@ class Footprint {
       this.choiceKleider,
       this.choiceHobbies,
       this.choiceDevices,
-      this.choiceEat);
+      this.choiceEat,
+      this.userid);
 }

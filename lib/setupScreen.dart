@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/result.dart';
 import 'dart:convert';
 import 'entities/footprint.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:uuid/uuid.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fx_stepper/fx_stepper.dart';
 
-void createFootprint(Footprint footprint) async {
-  await http.post(
-    Uri.parse('http://10.0.2.2:8080/savefootprint'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(footprint.toJson())
-  );
-}
 
-class StepperDemo extends StatefulWidget {
+import 'main.dart';
+import 'noti.dart';
+
+class FootprintWidget extends StatefulWidget {
+  const FootprintWidget({super.key});
+
   @override
-  _StepperDemoState createState() => _StepperDemoState();
+  _FootprintWidgetState createState() => _FootprintWidgetState();
 }
 
-class _StepperDemoState extends State<StepperDemo> {
+class _FootprintWidgetState extends State<FootprintWidget> {
   int _currentStep = 0;
-  StepperType stepperType = StepperType.horizontal;
-  final TextEditingController _controllerTitle = TextEditingController();
+  FxStepperType stepperType = FxStepperType.horizontal;
 
   //Essen
   List<String> choicesSaison = ['Weniger als ein Viertel', 'Etwa ein Viertel', 'Etwa die Hälfte', 'Etwa drei Viertel', 'Der Großteil ist saisonal'];
@@ -38,13 +37,12 @@ class _StepperDemoState extends State<StepperDemo> {
   int choiceFair = 0;
   int choiceTrash = 0;
 
-
   //Mobilität
   List<String> choicesCar = ['0km', 'Weniger als 2000km', '2000 - 7500km ', '7500 - 12500km', '12500 - 30000km ', 'Mehr als 30000km'];
   List<String> choicesFuel = ['Benzin/Diesel/Hybrid', 'Elektrisch', 'Erdgas', 'Biogas'];
   List<String> choicesFuelUse = ['Mehr als 12l/100km', '9 – 12l/100km', '4,5 – 6l/100km', 'Weniger als 4,5l/100km'];
   List<String> choicesOffi = ['Mehr als 600km', '360 - 600km', '240 - 360km', '80 - 240km','Weniger als 60km', 'Nie'];
-  List<String> choicesPlane = ['über 50 Stunden/Jahr', '25 – 50 Stunden/Jahr', '15 – 25 Stunden/Jahr', '8 – 15 Stunden/Jahr','weniger als 2 Stunden/Jahr', 'Garnicht'];
+  List<String> choicesPlane = ['über 50 Stunden/Jahr', '25 – 50 Stunden/Jahr', '15 – 25 Stunden/Jahr', '8 – 15 Stunden/Jahr','2 - 8 Stunden/Jahr', 'weniger als 2 Stunden/Jahr', 'Garnicht'];
   List<String> choicesCruise = ['mehr als 2 Wochen', '1 – 2 Wochen', '4 – 6 Tage', '1 – 3 Tage','Garnicht'];
   int choiceCar = 0;
   int choiceFuel = 0;
@@ -97,15 +95,15 @@ class _StepperDemoState extends State<StepperDemo> {
       body:  Column(
         children: [
           Expanded(
-            child: Stepper(
+            child: FxStepper(
               type: stepperType,
               physics: const ScrollPhysics(),
               currentStep: _currentStep,
               onStepTapped: (step) => tapped(step),
               onStepContinue:  continued,
               onStepCancel: cancel,
-              steps: <Step>[
-                Step(
+              steps: <FxStep>[
+                FxStep(
                   title: const Text('Essen'),
                   content: Column(
                     children: <Widget>[
@@ -283,10 +281,9 @@ class _StepperDemoState extends State<StepperDemo> {
       ),
                   ]),
                   isActive: _currentStep >= 0,
-                  state: _currentStep >= 0 ?
-                  StepState.complete : StepState.disabled
+                  state: _currentStep >= 0 ? FxStepState.complete : FxStepState.disabled
                 ),
-                Step(
+                FxStep(
                   title: const Text('Mobilität'),
                   content: Column(
                     children: <Widget>[
@@ -461,9 +458,9 @@ class _StepperDemoState extends State<StepperDemo> {
                   ),
                   isActive: _currentStep >= 0,
                   state: _currentStep >= 1 ?
-                  StepState.complete : StepState.disabled,
+                  FxStepState.complete : FxStepState.disabled,
                 ),
-                Step(
+                FxStep(
                   title: const Text('Wohnen'),
                   content: Column(
                     children: <Widget>[
@@ -750,9 +747,9 @@ class _StepperDemoState extends State<StepperDemo> {
                   ),
                   isActive:_currentStep >= 0,
                   state: _currentStep >= 2 ?
-                  StepState.complete : StepState.disabled,
+                  FxStepState.complete : FxStepState.disabled,
                 ),
-                Step(
+                FxStep(
                   title: const Text('Konsum'),
                   content: Column(
                     children: <Widget>[
@@ -871,11 +868,26 @@ class _StepperDemoState extends State<StepperDemo> {
                   ),
                   isActive:_currentStep >= 0,
                   state: _currentStep >= 3 ?
-                  StepState.complete : StepState.disabled,
+                  FxStepState.complete : FxStepState.disabled,
                 )
               ],
             ),
           ),
+          ElevatedButton(
+            child: Text('Test Startseite!'),
+            onPressed: () {
+              /*NotificationService().scheduleNotification(
+                  title: 'Scheduled Notification',
+                  body: 'It works!',
+                  scheduledNotificationDateTime: DateTime.now().add(const Duration(seconds: 3)));*/
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyHomePage(
+                    title: "oekoApp",
+                  )
+                  ));
+            },
+          )
         ],
       ),
     );
@@ -885,8 +897,15 @@ class _StepperDemoState extends State<StepperDemo> {
     setState(() => _currentStep = step);
   }
 
-  continued(){
+  continued() async {
     if(_currentStep == 3) {
+      var uuid = const Uuid();
+      var newuserid = uuid.v4();
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      //TODO CHANGE NEXT LINE!!!
+      //await prefs.setString("userid", "34d9bc7a-fe89-463c-9537-dbe7471b9485");
+      await prefs.setString("userid", newuserid);
+      await prefs.setInt("initScreen", 1);
       createFootprint(Footprint(choiceSaison,
           choiceMilk,
           choiceEggs,
@@ -912,7 +931,13 @@ class _StepperDemoState extends State<StepperDemo> {
           choiceKleider,
           choiceHobbies,
           choiceDevices,
-          choiceEat));
+          choiceEat,
+      newuserid));
+      await Future.delayed(const Duration(seconds: 1));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ResultWidget()
+      ));
     }
     _currentStep < 3 ? setState(() => _currentStep += 1): null;
   }
@@ -921,35 +946,16 @@ class _StepperDemoState extends State<StepperDemo> {
     setState(() => _currentStep -= 1) : null;
   }
 
-}
+  void createFootprint(Footprint footprint) async {
+    await http.post(
+        Uri.parse('http://10.0.2.2:8080/api/savefootprint'),
+        //Uri.parse('http://masterbackend.fly.dev/api/savefootprint'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(footprint.toJson())
+    );
 
-/*
-DropdownButton<String>(
-                          value: dropdownValue,
-                          items: <String>['Dog', 'Cat', 'Tiger', 'Lion']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownValue = newValue!;
-                            });
-                          },
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              _footprint.living = dropdownValue;
-                              _footprint.transportation = _controllerTitle.text;
-                              createFootprint(_footprint);
-                            });
-                          },
-                          child: const Text('Create Data'),
-                        ),
- */
+  }
+
+}
