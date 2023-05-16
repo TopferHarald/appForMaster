@@ -7,7 +7,6 @@ import 'package:myapp/questDetail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart';
 import 'entities/user.dart';
-import 'noti.dart';
 import 'setupScreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:timezone/data/latest.dart' as tz;
@@ -21,8 +20,6 @@ Future<void> main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   initScreen = prefs.getInt('initScreen');
   print(prefs.getString('userid'));
-  NotificationService().initNotification();
-  tz.initializeTimeZones();
   runApp(MyApp());
 }
 

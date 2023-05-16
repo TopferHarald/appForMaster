@@ -1,8 +1,6 @@
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
-  final FlutterLocalNotificationsPlugin notificationsPlugin =
+  /*final FlutterLocalNotificationsPlugin notificationsPlugin =
   FlutterLocalNotificationsPlugin();
 
   Future<void> initNotification() async {
@@ -62,5 +60,5 @@ class NotificationService {
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.wallClockTime, matchDateTimeComponents:  DateTimeComponents.dayOfWeekAndTime, payload: "weekly",);
 
-  }
+  }*/
 }
