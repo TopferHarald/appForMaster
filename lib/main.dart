@@ -20,6 +20,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   initScreen = prefs.getInt('initScreen');
+  print(prefs.getString('userid'));
   NotificationService().initNotification();
   tz.initializeTimeZones();
   runApp(MyApp());
@@ -82,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     values = await getAllFootprint();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    username = await prefs.getString("username")!;
+    username = prefs.getString("username")!;
     pairs = [];
     for (int i = 0; i < values.length; i += 2) {
       pairs.add(
@@ -263,8 +264,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     Future<List<User>> getLeaderboard() async {
       try {
-        var url = 'http://10.0.2.2:8080/api/leaderboard/all';
-        //var url = 'http://masterbackend.fly.dev/api/leaderboard/all';
+        //var url = 'http://10.0.2.2:8080/api/leaderboard/all';
+        var url = 'http://masterbackend.fly.dev/api/leaderboard/all';
         var res = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 2));
         if (res.statusCode == 200) {
           Iterable l = json.decode(res.body);
@@ -286,8 +287,8 @@ class _MyHomePageState extends State<MyHomePage> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var userid = prefs.getString("userid");
 
-      var url = 'http://10.0.2.2:8080/api/quest/new/$userid';
-      //var url = 'http://masterbackend.fly.dev/api/quest/new/$userid';
+      //var url = 'http://10.0.2.2:8080/api/quest/new/$userid';
+      var url = 'http://masterbackend.fly.dev/api/quest/new/$userid';
       var res = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 3));
       if (res.statusCode == 200) {
         Map result = jsonDecode(res.body);
@@ -316,8 +317,8 @@ class _MyHomePageState extends State<MyHomePage> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var userid = prefs.getString("userid");
 
-      var url = 'http://10.0.2.2:8080/api/footprint/all/$userid';
-      //var url = 'http://masterbackend.fly.dev/api/footprint/all/$userid';
+      //var url = 'http://10.0.2.2:8080/api/footprint/all/$userid';
+      var url = 'http://masterbackend.fly.dev/api/footprint/all/$userid';
       var res = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 2));
       if (res.statusCode == 200) {
         var x = res.body;
@@ -344,7 +345,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontFamily: 'Montserrat'),
                   children: <TextSpan> [
                     TextSpan(text: 'Home: ', style: new TextStyle(fontWeight: FontWeight.bold)),
-                    const TextSpan(text: 'Hier sieht man deinen aktuellen Fußabdruck, verglichen mit deinem Startwert. Je weniger CO2e du ausstoßt, desto besser.')]),
+                    const TextSpan(text: 'Hier sieht man deinen aktuellen Fussabdruck, verglichen mit deinem Startwert. Je weniger CO2e du verursachst, desto besser.')]),
                 )),
               const SizedBox(height: 8),
               Padding(padding: const EdgeInsets.all(20), child:
@@ -366,7 +367,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     fontFamily: 'Montserrat'),
                     children: <TextSpan> [
                       TextSpan(text: 'Leaderboard: ', style: new TextStyle(fontWeight: FontWeight.bold)),
-                      const TextSpan(text: 'Hier kannst du sehen wo du gerade im Vergleich zu den anderen Usern stehst. Versuche dich so weit wie möglich an die Spitze der Rangliste zu arbeiten, indem du Aufgaben erledigst.')]),
+                      const TextSpan(text: 'Hier kannst du sehen wo du gerade im Vergleich zu den anderen Usern stehst. Versuche dich so weit wie moeglich an die Spitze der Rangliste zu arbeiten, indem du Aufgaben erledigst.')]),
                 ))
             ],
           );

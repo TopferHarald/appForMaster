@@ -95,8 +95,8 @@ class _QuestDetailWidgetState extends State<QuestDetailWidget> {
     String userid = prefs.getString("userid") ?? "nouid";
 
     await http.post(
-        //Uri.parse('http://masterbackend.fly.dev/api/quest/done'),
-        Uri.parse('http://10.0.2.2:8080/api/quest/done'),
+        Uri.parse('http://masterbackend.fly.dev/api/quest/done'),
+        //Uri.parse('http://10.0.2.2:8080/api/quest/done'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -113,8 +113,8 @@ class _QuestDetailWidgetState extends State<QuestDetailWidget> {
 
     try {
       final response = await http.post(
-        //Uri.parse('https://masterbackend.fly.dev/api/quest/improved'),
-        Uri.parse('http://10.0.2.2:8080/api/quest/improved'),
+        Uri.parse('https://masterbackend.fly.dev/api/quest/improved'),
+        //Uri.parse('http://10.0.2.2:8080/api/quest/improved'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -149,8 +149,8 @@ class _QuestDetailWidgetState extends State<QuestDetailWidget> {
   Future<String> getQuestInfo() async {
     try {
 
-      var url = 'http://10.0.2.2:8080/api/quest/info/${widget.questKey}';
-      //var url = 'http://masterbackend.fly.dev/api/quest/info/$userid';
+      //var url = 'http://10.0.2.2:8080/api/quest/info/${widget.questKey}';
+      var url = 'http://masterbackend.fly.dev/api/quest/info/${widget.questKey}';
       var res = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 2));
       if (res.statusCode == 200) {
         return res.body;

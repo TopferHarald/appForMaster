@@ -76,7 +76,7 @@ class _ResultWidgetState extends State<ResultWidget> {
     var username = await getUsername();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString("username", username);
-    List<double> values = [double.parse(essenValue.toStringAsFixed(2)), 0.34, double.parse(mobilValue.toStringAsFixed(2)), 4.39, double.parse(wohnenValue.toStringAsFixed(2)), 1.07, double.parse(konsumValue.toStringAsFixed(2)), 2.64];
+    List<double> values = [double.parse(essenValue.toStringAsFixed(2)), 1.64, double.parse(mobilValue.toStringAsFixed(2)), 8.89, double.parse(wohnenValue.toStringAsFixed(2)), 1.07, double.parse(konsumValue.toStringAsFixed(2)), 2.64];
     List<Widget> pairs = [];
     pairs.add(Text('Dein zufällig erstellter Username: $username', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)));
     for (int i = 0; i < values.length; i += 2) {
@@ -148,8 +148,8 @@ class _ResultWidgetState extends State<ResultWidget> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userid = prefs.getString("userid");
 
-    //var url = 'http://masterbackend.fly.dev/api/footprint/essen/$userid';
-    var url = 'http://10.0.2.2:8080/api/footprint/essen/$userid';
+    var url = 'http://masterbackend.fly.dev/api/footprint/essen/$userid';
+    //var url = 'http://10.0.2.2:8080/api/footprint/essen/$userid';
     var res = await http.get(Uri.parse(url));
     if (res.statusCode == 200) {
       double yld = double.parse(res.body);
@@ -162,8 +162,8 @@ class _ResultWidgetState extends State<ResultWidget> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userid = prefs.getString("userid");
 
-    //var url = 'http://masterbackend.fly.dev/api/footprint/mobil/$userid';
-    var url = 'http://10.0.2.2:8080/api/footprint/mobil/$userid';
+    var url = 'http://masterbackend.fly.dev/api/footprint/mobil/$userid';
+    //var url = 'http://10.0.2.2:8080/api/footprint/mobil/$userid';
     var res = await http.get(Uri.parse(url));
     if (res.statusCode == 200) {
       double yld = double.parse(res.body);
@@ -176,8 +176,8 @@ class _ResultWidgetState extends State<ResultWidget> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userid = prefs.getString("userid");
 
-    //var url = 'http://masterbackend.fly.dev/api/footprint/wohnen/$userid';
-    var url = 'http://10.0.2.2:8080/api/footprint/wohnen/$userid';
+    var url = 'http://masterbackend.fly.dev/api/footprint/wohnen/$userid';
+    //var url = 'http://10.0.2.2:8080/api/footprint/wohnen/$userid';
     var res = await http.get(Uri.parse(url));
     if (res.statusCode == 200) {
       double yld = double.parse(res.body);
@@ -190,8 +190,8 @@ class _ResultWidgetState extends State<ResultWidget> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userid = prefs.getString("userid");
 
-    //var url = 'http://masterbackend.fly.dev/api/footprint/konsum/$userid';
-    var url = 'http://10.0.2.2:8080/api/footprint/konsum/$userid';
+    var url = 'http://masterbackend.fly.dev/api/footprint/konsum/$userid';
+    //var url = 'http://10.0.2.2:8080/api/footprint/konsum/$userid';
     var res = await http.get(Uri.parse(url));
     if (res.statusCode == 200) {
       double yld = double.parse(res.body);
@@ -205,8 +205,8 @@ class _ResultWidgetState extends State<ResultWidget> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var userid = prefs.getString("userid");
 
-      var url = 'http://10.0.2.2:8080/api/username/$userid';
-      //var url = 'http://masterbackend.fly.dev/username/$userid';
+      //var url = 'http://10.0.2.2:8080/api/username/$userid';
+      var url = 'http://masterbackend.fly.dev/api/username/$userid';
       var res = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 2));
       if (res.statusCode == 200) {
         return res.body;

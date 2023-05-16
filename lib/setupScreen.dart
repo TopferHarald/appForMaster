@@ -38,7 +38,7 @@ class _FootprintWidgetState extends State<FootprintWidget> {
   int choiceTrash = 0;
 
   //Mobilität
-  List<String> choicesCar = ['0km', 'Weniger als 2000km', '2000 - 7500km ', '7500 - 12500km', '12500 - 30000km ', 'Mehr als 30000km'];
+  List<String> choicesCar = ['Mehr als 30000km', '12500 - 30000km', '7500 - 12500km', '2000 - 7500km', 'Weniger als 2000km', '0km'];
   List<String> choicesFuel = ['Benzin/Diesel/Hybrid', 'Elektrisch', 'Erdgas', 'Biogas'];
   List<String> choicesFuelUse = ['Mehr als 12l/100km', '9 – 12l/100km', '4,5 – 6l/100km', 'Weniger als 4,5l/100km'];
   List<String> choicesOffi = ['Mehr als 600km', '360 - 600km', '240 - 360km', '80 - 240km','Weniger als 60km', 'Nie'];
@@ -56,7 +56,7 @@ class _FootprintWidgetState extends State<FootprintWidget> {
   List<String> choicesBaujahr = ['Baujahr vor 1980', 'Baujahr 1980 - 1990', 'Baujahr 1991 - 2008','Baujahr nach 2009'];
   List<String> choicesLivingarea = ['Mehr als 300m2', '201 - 300m2', '151-200m2', '126-150m2','101-125m2', '76-100m2', '51-75m2', '30-50m2', 'Kleiner als 30m2'];
   List<String> choicesPersons = ['1 Person', '2 Personen', '3 Personen', '4 Personen','5 Personen'];
-  List<String> choicesTemperature = ['Maximal 17 Grad', 'Maximal 19 Grad', 'Etwa 21 Grad', 'Über 23 Grad'];
+  List<String> choicesTemperature = ['Über 23 Grad', 'Etwa 21 Grad', 'Maximal 19 Grad', 'Maximal 17 Grad'];
   List<String> choicesType = ['Einfamilienhaus', 'Mehrfamilienhaus'];
   List<String> choicesClass = ['Schlechter als A', 'A und besser', 'A+ und besser', 'A++ und besser', 'Keine Ahnung - Geräte meist älter als 10 Jahre', 'Keine Ahnung - Geräte meist jünger als 10 Jahre'];
   List<String> choicesCool = ['Mehrere Kühlschränke/Tiefkühltruhen', 'Kühlschrank in Kombination mit Tiefkühler', 'Ein Kühlschrank mit kleinem Gefrierfach'];
@@ -948,8 +948,8 @@ class _FootprintWidgetState extends State<FootprintWidget> {
 
   void createFootprint(Footprint footprint) async {
     await http.post(
-        Uri.parse('http://10.0.2.2:8080/api/savefootprint'),
-        //Uri.parse('http://masterbackend.fly.dev/api/savefootprint'),
+        //Uri.parse('http://10.0.2.2:8080/api/savefootprint'),
+        Uri.parse('http://masterbackend.fly.dev/api/savefootprint'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
