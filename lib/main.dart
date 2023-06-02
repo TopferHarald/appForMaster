@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightGreen,
         textTheme: GoogleFonts.robotoSlabTextTheme(Theme.of(context).textTheme),
       ),
-      initialRoute: initScreen == 1 ? "setup" : "setup",
+      initialRoute: initScreen == 1 ? "/" : "setup",
       routes: {
         '/': (context) => MyHomePage(
           title: "oekoApp",
@@ -80,6 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     values = await getAllFootprint();
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    usernm = prefs.getString('username');
     pairs = [];
     for (int i = 0; i < values.length; i += 2) {
       pairs.add(
