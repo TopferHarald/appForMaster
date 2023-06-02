@@ -14,12 +14,13 @@ import 'package:timezone/data/latest.dart' as tz;
 import 'package:google_fonts/google_fonts.dart';
 
 int? initScreen;
+String? usernm;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   initScreen = prefs.getInt('initScreen');
-  print(prefs.getString('userid'));
+  usernm = prefs.getString('username');
   runApp(MyApp());
 }
 
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightGreen,
         textTheme: GoogleFonts.robotoSlabTextTheme(Theme.of(context).textTheme),
       ),
-      initialRoute: initScreen == 1 ? "/" : "setup",
+      initialRoute: initScreen == 1 ? "setup" : "setup",
       routes: {
         '/': (context) => MyHomePage(
           title: "oekoApp",
@@ -60,7 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
   List<String> questTxt = [];
   List<Widget> pairs = [];
   List values = [];
-  String username = "";
 
   @override
   void initState() {
@@ -80,7 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     values = await getAllFootprint();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    username = prefs.getString("username")!;
     pairs = [];
     for (int i = 0; i < values.length; i += 2) {
       pairs.add(
@@ -179,21 +178,21 @@ class _MyHomePageState extends State<MyHomePage> {
             leading: Text(
               '$rank',
               style: GoogleFonts.roboto(
-                fontWeight: player.name == username ? FontWeight.bold : FontWeight.normal,
+                fontWeight: player.name == usernm ? FontWeight.bold : FontWeight.normal,
                 fontSize: 20,
               ),
             ),
             title: Text(
               player.name,
               style: GoogleFonts.roboto(
-                fontWeight: player.name == username ? FontWeight.bold : FontWeight.normal,
+                fontWeight: player.name == usernm ? FontWeight.bold : FontWeight.normal,
                 fontSize: 20,
               ),
             ),
             trailing: Text(
               '${player.score.toStringAsFixed(2)}t CO2e',
               style: GoogleFonts.roboto(
-                fontWeight: player.name == username ? FontWeight.bold : FontWeight.normal,
+                fontWeight: player.name == usernm ? FontWeight.bold : FontWeight.normal,
                 fontSize: 20,
               ),
             ),
@@ -214,7 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Hallo $username'),
+          title: Text('Hallo $usernm'),
           actions: <Widget>[
             IconButton(icon: const Icon(
               Icons.question_mark_rounded,

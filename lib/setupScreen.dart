@@ -40,7 +40,7 @@ class _FootprintWidgetState extends State<FootprintWidget> {
   //Mobilität
   List<String> choicesCar = ['Mehr als 30000km', '12500 - 30000km', '7500 - 12500km', '2000 - 7500km', 'Weniger als 2000km', '0km'];
   List<String> choicesFuel = ['Benzin/Diesel/Hybrid', 'Elektrisch', 'Erdgas', 'Biogas'];
-  List<String> choicesFuelUse = ['Mehr als 12l/100km', '9 – 12l/100km', '4,5 – 6l/100km', 'Weniger als 4,5l/100km'];
+  List<String> choicesFuelUse = ['Mehr als 12l/100km', '9 – 12l/100km', '6 – 9l/100km', '4,5 – 6l/100km', 'Weniger als 4,5l/100km'];
   List<String> choicesOffi = ['Mehr als 600km', '360 - 600km', '240 - 360km', '80 - 240km','Weniger als 60km', 'Nie'];
   List<String> choicesPlane = ['über 50 Stunden/Jahr', '25 – 50 Stunden/Jahr', '15 – 25 Stunden/Jahr', '8 – 15 Stunden/Jahr','2 - 8 Stunden/Jahr', 'weniger als 2 Stunden/Jahr', 'Garnicht'];
   List<String> choicesCruise = ['mehr als 2 Wochen', '1 – 2 Wochen', '4 – 6 Tage', '1 – 3 Tage','Garnicht'];
@@ -57,10 +57,10 @@ class _FootprintWidgetState extends State<FootprintWidget> {
   List<String> choicesLivingarea = ['Mehr als 300m2', '201 - 300m2', '151-200m2', '126-150m2','101-125m2', '76-100m2', '51-75m2', '30-50m2', 'Kleiner als 30m2'];
   List<String> choicesPersons = ['1 Person', '2 Personen', '3 Personen', '4 Personen','5 Personen'];
   List<String> choicesTemperature = ['Über 23 Grad', 'Etwa 21 Grad', 'Maximal 19 Grad', 'Maximal 17 Grad'];
-  List<String> choicesType = ['Einfamilienhaus', 'Mehrfamilienhaus'];
+  List<String> choicesType = ['Einfamilienhaus', 'Mehrfamilienhaus (Wohnung)'];
   List<String> choicesClass = ['Schlechter als A', 'A und besser', 'A+ und besser', 'A++ und besser', 'Keine Ahnung - Geräte meist älter als 10 Jahre', 'Keine Ahnung - Geräte meist jünger als 10 Jahre'];
   List<String> choicesCool = ['Mehrere Kühlschränke/Tiefkühltruhen', 'Kühlschrank in Kombination mit Tiefkühler', 'Ein Kühlschrank mit kleinem Gefrierfach'];
-  List<String> choicesWash = ['Auf der maximal vorgesehenen Waschtemperatur ', 'Grossteil bei 40 °C, etwa ein Drittel bei 60 °C, keine Kochwäsche (95 °C)', 'Mehr als die Hälfte bei 30 °C und weniger, nur ganz selten 60 °C'];
+  List<String> choicesWash = ['Auf der maximal vorgesehenen Temperatur', 'Grossteil bei 40 °C, etwa ein Drittel bei 60 °C', 'Mehr als die Hälfte bei 30 °C und weniger'];
   List<String> choicesDry = ['Im Raum mit Lufttrockner', 'Teils Lufttrockner und teils Wäscheleine', 'Nur Wäscheleine'];
   int choiceHeiz = 0;
   int choiceBaujahr = 0;
@@ -837,7 +837,7 @@ class _FootprintWidgetState extends State<FootprintWidget> {
                         }),
                       ),
                       const SizedBox(height: 30),
-                      Text('Wie viel Geld gebst du monatlich für Essen in Restaurants sowie für auswärtige Übernachtungen aus?',
+                      Text('Wie viel Geld gibst du monatlich für Essen in Restaurants sowie für auswärtige Übernachtungen aus?',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.robotoSlab(fontWeight: FontWeight.bold, fontSize: 20)),
                       Wrap(
@@ -873,13 +873,13 @@ class _FootprintWidgetState extends State<FootprintWidget> {
               ],
             ),
           ),
-          ElevatedButton(
+          /*ElevatedButton(
             child: Text('Test Startseite!'),
             onPressed: () {
-              /*NotificationService().scheduleNotification(
+              *//*NotificationService().scheduleNotification(
                   title: 'Scheduled Notification',
                   body: 'It works!',
-                  scheduledNotificationDateTime: DateTime.now().add(const Duration(seconds: 3)));*/
+                  scheduledNotificationDateTime: DateTime.now().add(const Duration(seconds: 3)));*//*
               Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MyHomePage(
@@ -887,7 +887,7 @@ class _FootprintWidgetState extends State<FootprintWidget> {
                   )
                   ));
             },
-          )
+          )*/
         ],
       ),
     );
