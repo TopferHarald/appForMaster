@@ -30,12 +30,12 @@ class _FootprintWidgetState extends State<FootprintWidget> {
   List<String> choicesMeat = ['2-3 Mal pro Tag', 'Einmal täglich', '4-6 Mal pro Woche', '1-3 Mal pro Woche', 'Weniger als einmal pro Woche', 'Nie'];
   List<String> choicesFair = ['Gleich null', 'Etwa ein Viertel', 'Etwa die Hälfte', 'Etwa drei Viertel', 'Fast nur Label-Produkte'];
   List<String> choicesTrash = ['Mehrmals pro Woche', 'Gelegentlich', 'Quasi nie'];
-  int choiceSaison = 0;
-  int choiceMilk = 0;
-  int choiceEggs = 0;
-  int choiceMeat = 0;
-  int choiceFair = 0;
-  int choiceTrash = 0;
+  int choiceSaison = -1;
+  int choiceMilk = -1;
+  int choiceEggs = -1;
+  int choiceMeat = -1;
+  int choiceFair = -1;
+  int choiceTrash = -1;
 
   //Mobilität
   List<String> choicesCar = ['Mehr als 30000km', '12500 - 30000km', '7500 - 12500km', '2000 - 7500km', 'Weniger als 2000km', '0km'];
@@ -44,12 +44,12 @@ class _FootprintWidgetState extends State<FootprintWidget> {
   List<String> choicesOffi = ['Mehr als 600km', '360 - 600km', '240 - 360km', '80 - 240km','Weniger als 60km', 'Nie'];
   List<String> choicesPlane = ['über 50 Stunden/Jahr', '25 – 50 Stunden/Jahr', '15 – 25 Stunden/Jahr', '8 – 15 Stunden/Jahr','2 - 8 Stunden/Jahr', 'weniger als 2 Stunden/Jahr', 'Garnicht'];
   List<String> choicesCruise = ['mehr als 2 Wochen', '1 – 2 Wochen', '4 – 6 Tage', '1 – 3 Tage','Garnicht'];
-  int choiceCar = 0;
-  int choiceFuel = 0;
-  int choiceFuelUse = 0;
-  int choiceOffi = 0;
-  int choicePlane = 0;
-  int choiceCruise = 0;
+  int choiceCar = -1;
+  int choiceFuel = -1;
+  int choiceFuelUse = -1;
+  int choiceOffi = -1;
+  int choicePlane = -1;
+  int choiceCruise = -1;
 
   //Wohnen
   List<String> choicesHeiz = ['Erdöl', 'Erdgas', 'Fernwärme', 'Wärmepumpe','Holz'];
@@ -62,26 +62,26 @@ class _FootprintWidgetState extends State<FootprintWidget> {
   List<String> choicesCool = ['Mehrere Kühlschränke/Tiefkühltruhen', 'Kühlschrank in Kombination mit Tiefkühler', 'Ein Kühlschrank mit kleinem Gefrierfach'];
   List<String> choicesWash = ['Auf der maximal vorgesehenen Temperatur', 'Grossteil bei 40 °C, etwa ein Drittel bei 60 °C', 'Mehr als die Hälfte bei 30 °C und weniger'];
   List<String> choicesDry = ['Im Raum mit Lufttrockner', 'Teils Lufttrockner und teils Wäscheleine', 'Nur Wäscheleine'];
-  int choiceHeiz = 0;
-  int choiceBaujahr = 0;
-  int choiceLivingarea = 0;
-  int choicePersons = 0;
-  int choiceTemperature = 0;
-  int choiceType = 0;
-  int choiceClass = 0;
-  int choiceCool = 0;
-  int choiceWash = 0;
-  int choiceDry = 0;
+  int choiceHeiz = -1;
+  int choiceBaujahr = -1;
+  int choiceLivingarea = -1;
+  int choicePersons = -1;
+  int choiceTemperature = -1;
+  int choiceType = -1;
+  int choiceClass = -1;
+  int choiceCool = -1;
+  int choiceWash = -1;
+  int choiceDry = -1;
 
   //Konsum
   List<String> choicesKleider = ['Mehr als 250€ pro Monat', 'ca. 125€ pro Monat', 'ca. 100€ pro Monat', 'ca. 50€ pro Monat', 'Weniger als 20€ pro Monat'];
   List<String> choicesHobbies = ['Mehr als 600€ pro Monat', 'ca. 400€ pro Monat', 'ca. 260€ pro Monat', 'ca. 150€ pro Monat', 'Weniger als 50€ pro Monat'];
   List<String> choicesDevices = ['Mehr als 300€ pro Monat', 'ca. 200€ pro Monat', 'ca. 125€ pro Monat', 'ca. 75€ pro Monat', 'Weniger als 25€ pro Monat'];
   List<String> choicesEat = ['Mehr als 600€ pro Monat', 'ca. 400€ pro Monat', 'ca. 250€ pro Monat', 'ca. 100€ pro Monat', 'Weniger als 50€ pro Monat'];
-  int choiceKleider = 0;
-  int choiceHobbies = 0;
-  int choiceDevices = 0;
-  int choiceEat = 0;
+  int choiceKleider = -1;
+  int choiceHobbies = -1;
+  int choiceDevices = -1;
+  int choiceEat = -1;
 
 
   @override
@@ -899,47 +899,54 @@ class _FootprintWidgetState extends State<FootprintWidget> {
 
   continued() async {
     if(_currentStep == 3) {
-      var uuid = const Uuid();
-      var newuserid = uuid.v4();
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      //TODO CHANGE NEXT LINE!!!
-      //await prefs.setString("userid", "34d9bc7a-fe89-463c-9537-dbe7471b9485");
-      await prefs.setString("userid", newuserid);
-      await prefs.setInt("initScreen", 1);
-      createFootprint(Footprint(choiceSaison,
-          choiceMilk,
-          choiceEggs,
-          choiceMeat,
-          choiceFair,
-          choiceTrash,
-          choiceCar,
-          choiceFuel,
-          choiceFuelUse,
-          choiceOffi,
-          choicePlane,
-          choiceCruise,
-          choiceHeiz,
-          choiceBaujahr,
-          choiceLivingarea,
-          choicePersons,
-          choiceTemperature,
-          choiceType,
-          choiceClass,
-          choiceCool,
-          choiceWash,
-          choiceDry,
-          choiceKleider,
-          choiceHobbies,
-          choiceDevices,
-          choiceEat,
-      newuserid));
-      await Future.delayed(const Duration(seconds: 1));
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ResultWidget()
-      ));
+      if (choiceMilk == -1 || choiceSaison == -1 || choiceEggs == -1 || choiceMeat == -1 || choiceFair == -1 || choiceTrash == -1
+          || choiceCar == -1 || choiceFuel == -1 || choiceFuelUse == -1 || choiceOffi == -1 || choicePlane == -1 || choiceCruise == -1
+          || choiceHeiz == -1 || choiceBaujahr == -1 || choiceLivingarea == -1 || choicePersons == -1 || choiceTemperature == -1 || choiceType == -1
+          || choiceClass == -1 || choiceCool == -1 || choiceWash == -1 || choiceDry == -1 || choiceKleider == -1 || choiceHobbies == -1
+          || choiceDevices == -1 || choiceEat == -1) {
+        _showInfoDialog();
+      } else {
+        var uuid = const Uuid();
+        var newuserid = uuid.v4();
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString("userid", newuserid);
+        await prefs.setInt("initScreen", 1);
+        createFootprint(Footprint(
+            choiceSaison,
+            choiceMilk,
+            choiceEggs,
+            choiceMeat,
+            choiceFair,
+            choiceTrash,
+            choiceCar,
+            choiceFuel,
+            choiceFuelUse,
+            choiceOffi,
+            choicePlane,
+            choiceCruise,
+            choiceHeiz,
+            choiceBaujahr,
+            choiceLivingarea,
+            choicePersons,
+            choiceTemperature,
+            choiceType,
+            choiceClass,
+            choiceCool,
+            choiceWash,
+            choiceDry,
+            choiceKleider,
+            choiceHobbies,
+            choiceDevices,
+            choiceEat,
+            newuserid));
+        await Future.delayed(const Duration(seconds: 1));
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ResultWidget()
+            ));
+      }
     }
-    _currentStep < 3 ? setState(() => _currentStep += 1): null;
+    _currentStep < 3 ? setState(() => _currentStep += 1) : null;
   }
   cancel(){
     _currentStep > 0 ?
@@ -956,6 +963,27 @@ class _FootprintWidgetState extends State<FootprintWidget> {
         body: jsonEncode(footprint.toJson())
     );
 
+  }
+
+  Future<void> _showInfoDialog() async {
+    await showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: const Text('Alle Fragen beantworten!'),
+            children: <Widget>[
+              Padding(padding: const EdgeInsets.all(20), child:
+              RichText(text: TextSpan(style:
+              const TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.black,
+                  fontFamily: 'Montserrat'),
+                  children: <TextSpan> [
+                    const TextSpan(text: 'Bitte eine Antwort zu jeder Frage auswählen.')]),
+              )),
+            ],
+          );
+        });
   }
 
 }
